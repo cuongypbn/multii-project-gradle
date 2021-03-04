@@ -1,0 +1,108 @@
+allprojects {
+    group 'com.example.core'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+buildscript {
+    ext {
+        springBootVersion = '2.4.3'
+        springManagementVersion = '1.0.7.RELEASE'
+        lombokVersion = '1.18.4'
+
+        guavaVersion = '27.1-jre'
+        commonLang3Version = '3.8.1'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:${springManagementVersion}")
+    }
+}
+
+
+subprojects {
+
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    def defaultEncoding = 'UTF-8'
+    tasks.withType(AbstractCompile).each { it.options.encoding = defaultEncoding }
+
+    javadoc {
+        options.encoding = defaultEncoding
+        options.addBooleanOption('Xdoclint:none', true)
+    }
+
+    compileJava.dependsOn(processResources)
+
+    springBoot {
+        buildInfo()
+    }
+
+    dependencies {
+
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+        // SPRING DEPENDENCIES
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
+
+//        // Utilities
+//        compile group: 'com.google.guava', name: 'guava', version: "${guavaVersion}"
+//        compile group: 'org.apache.commons', name: 'commons-lang3', version: "${commonLang3Version}"
+        implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.2'
+
+//        implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.0.6.RELEASE'
+        // TEST
+//        testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.4.2'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+}
+
+project(':api') {
+
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+project(':core') {
+}
+
+project(':website') {
+    dependencies {
+        implementation project(':core')
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+    }
+}
+
+project(':eureka') {
+    dependencies {
+        implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-server', version: '3.0.1'
+    }
+}
+
+
+gradle.buildFinished {
+    project.buildDir.deleteDir()
+}

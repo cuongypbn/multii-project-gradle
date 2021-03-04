@@ -1,0 +1,5 @@
+group 'com.example.core'
+version '1.0-SNAPSHOT'
+
+bootJar.enabled = false
+jar.enabled = true

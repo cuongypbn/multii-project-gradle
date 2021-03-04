@@ -1,0 +1,15 @@
+FROM gradle AS build
+
+RUN mkdir -p /app/src
+WORKDIR /app/src
+COPY . /app/src
+
+RUN  ./gradlew :web:build
+
+FROM openjdk:8-jdk-alpine AS WEB
+
+RUN mkdir -p /app/src
+WORKDIR /app/src
+COPY --from=build /app/src/web /app/src/web
+
+ENTRYPOINT ["java", "-jar","/app/src/web/build/libs/web-0.0.1-SNAPSHOT.jar"]

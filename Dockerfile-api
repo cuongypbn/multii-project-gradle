@@ -1,0 +1,15 @@
+FROM gradle AS build
+
+RUN mkdir -p /app/src
+WORKDIR /app/src
+COPY . /app/src
+
+RUN  ./gradlew :api:build
+
+FROM openjdk:8-jdk-alpine AS API
+
+RUN mkdir -p /app/src
+WORKDIR /app/src
+COPY --from=build /app/src/api /app/src/api
+
+ENTRYPOINT ["java", "-jar","/app/src/api/build/libs/api-0.0.1-SNAPSHOT.jar"]
