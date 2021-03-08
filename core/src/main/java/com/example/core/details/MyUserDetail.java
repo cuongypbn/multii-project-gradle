@@ -3,6 +3,7 @@ package com.example.core.details;
 import com.example.core.entity.RoleUser;
 import com.example.core.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,17 +13,28 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 public class MyUserDetail implements UserDetails {
     private final User user;
+    String ROLE_PREFIX = "ROLE_";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        List<RoleUser> roleUserList = new ArrayList<>(user.getRoles());
-        roleUserList.forEach(roleUser -> {
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleUser.getName());
-            authorities.add(authority);
-        });
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        log.warn("user {}", user);
+        if (user.getRoles().size() > 0) {
+            List<RoleUser> roleUserList = new ArrayList<>(user.getRoles());
+            roleUserList.forEach(roleUser -> {
+                log.warn("roleUser {}", roleUser.getName());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + roleUser.getName());
+                authorities.add(authority);
+            });
+//            for (RoleUser roleUser : roleUserList) {
+//                log.warn("roleUser {}", roleUser.getName());
+//                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + roleUser.getName());
+//                authorities.add(authority);
+//            }
+        }
         return authorities;
     }
 

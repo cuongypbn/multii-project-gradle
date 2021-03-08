@@ -24,14 +24,16 @@ public class User implements Serializable {
 
     @Column(name = "user_id", unique = true)
     private String userId;
-    private String name;
     private String firstName;
     private String lastName;
+
+    @Column(name = "email", unique = true)
     private String email;
     private String password;
+    private String passwordRepeat;
     private boolean enabled;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
