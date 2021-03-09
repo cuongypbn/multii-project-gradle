@@ -30,6 +30,8 @@ public class User implements Serializable {
     @Column(name = "email", unique = true)
     private String email;
     private String password;
+
+    @Transient
     private String passwordRepeat;
     private boolean enabled;
 
