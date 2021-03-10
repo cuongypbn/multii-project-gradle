@@ -8,5 +8,5 @@ include 'api'
 include 'core'
 include 'eureka'
 include 'website'
-
+include 'web'
 
