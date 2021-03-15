@@ -4,9 +4,10 @@ pluginManagement {
     }
 }
 rootProject.name = 'multii-project-gradle'
-include 'api'
+//include 'api'
 include 'core'
 include 'eureka'
 include 'website'
 include 'web'
+include 'api-web'
 

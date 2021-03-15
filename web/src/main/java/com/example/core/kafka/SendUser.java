@@ -9,12 +9,13 @@ import org.springframework.kafka.core.KafkaTemplate;
 public class SendUser {
 
     @Autowired
-    private SenderUserConfig senderUserConfig;
-
-    @Autowired
     private KafkaTemplate<String, User> simpleKafkaTemplate;
 
     public void send(String topicName, User user) {
         simpleKafkaTemplate.send(topicName, user);
+    }
+
+    public void send(String topicName, String key, User user) {
+        simpleKafkaTemplate.send(topicName, key, user);
     }
 }

@@ -12,6 +12,6 @@ public class WebApplication {
     public static void main(String[] args) throws InterruptedException {
         ConfigurableApplicationContext context = SpringApplication.run(WebApplication.class, args);
         ReceiverUser receiverUser = context.getBean(ReceiverUser.class);
-        receiverUser.latchDelay.wait(10, 10);
+//        receiverUser.latchDelay.wait(10, 10);
     }
 }

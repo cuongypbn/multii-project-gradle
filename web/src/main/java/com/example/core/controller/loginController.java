@@ -17,7 +17,8 @@ public class loginController {
     @PostMapping("/login")
     public String login(@ModelAttribute User user) {
         log.warn("login user {}", user);
-        sendUser.send("user", user);
+//        sendUser.send("user", user);
+        sendUser.send("user", "cc", user);
         return "login";
     }
 }

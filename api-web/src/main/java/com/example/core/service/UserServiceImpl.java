@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Configuration
 @Slf4j
 public class UserServiceImpl implements UserDetailsService {
+
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {

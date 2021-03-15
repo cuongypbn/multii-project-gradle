@@ -61,7 +61,6 @@ subprojects {
 
         // SPRING DEPENDENCIES
 
-
 //        // Utilities
 //        compile group: 'com.google.guava', name: 'guava', version: "${guavaVersion}"
 //        compile group: 'org.apache.commons', name: 'commons-lang3', version: "${commonLang3Version}"
@@ -75,9 +74,11 @@ subprojects {
 
 }
 
-project(':api') {
-
+project(':api-web') {
     dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.5.RELEASE'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.2'
         implementation project(':core')
     }
 }
@@ -89,6 +90,7 @@ project(':core') {
         implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
     }
 }
+
 
 project(':website') {
     dependencies {
