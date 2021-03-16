@@ -10,6 +10,8 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.4.2'
     implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.10.RELEASE'
     compile project(':core')
 
