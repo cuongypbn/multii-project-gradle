@@ -21,19 +21,12 @@ public class MyUserDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        log.warn("user {}", user);
         if (user.getRoles().size() > 0) {
             List<RoleUser> roleUserList = new ArrayList<>(user.getRoles());
             roleUserList.forEach(roleUser -> {
-                log.warn("roleUser {}", roleUser.getName());
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + roleUser.getName());
                 authorities.add(authority);
             });
-//            for (RoleUser roleUser : roleUserList) {
-//                log.warn("roleUser {}", roleUser.getName());
-//                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + roleUser.getName());
-//                authorities.add(authority);
-//            }
         }
         return authorities;
     }

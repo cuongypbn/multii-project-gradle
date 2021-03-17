@@ -28,7 +28,7 @@ public class HomeController {
 
     @RequestMapping("/admin")
     public String viewAdmin() {
-        return "about";
+        return "admin/index";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

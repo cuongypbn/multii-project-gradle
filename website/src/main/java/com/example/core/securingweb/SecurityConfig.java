@@ -1,7 +1,9 @@
 package com.example.core.securingweb;
 
+import com.example.core.service.MyAuthenticationSuccessHandler;
 import com.example.core.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -17,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserServiceImpl userService;
+    @Autowired
+    MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .successForwardUrl("/home")
+                .successHandler(myAuthenticationSuccessHandler)
                 .failureUrl("/login?message=error")
                 .permitAll()
                 .and()
