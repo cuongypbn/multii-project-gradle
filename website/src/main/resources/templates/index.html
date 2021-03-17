@@ -24,8 +24,8 @@
 
 </head>
 <body>
-<nav class="navbar navbar-light navbar-expand-md">
-    <div >
+<nav class="navbar navbar-light navbar-expand-md" th:unless="${error_body}">
+    <div>
         <div><a class="navbar-brand d-none" href="#"> </a>
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
@@ -48,6 +48,8 @@
         </div>
     </div>
 </nav>
+<div th:include="error :: errorContent" th:if="${error_body}">
+</div>
 
 <!--<header class="masthead background-header">-->
 <!--    <div class="overlay"></div>-->
@@ -152,9 +154,13 @@
 <!--    </div>-->
 <!--</footer>-->
 <script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
-<script src="../static/assets/bootstrap/js/bootstrap.min.js"
-        th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script src="../static/assets/bootstrap/js/bootstrap.min.js" th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
 <script src="../static/assets/js/clean-blog.js" th:src="@{/assets/js/clean-blog.js}"></script>
+
+<script src="../static/assets/js/chart.min.js" th:src="@{/assets/js/chart.min.js}"></script>
+<script src="../static/assets/js/bs-init.js" th:src="@{/assets/js/bs-init.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="../static/assets/js/theme.js" th:src="@{/assets/js/theme.js}"></script>
 </body>
 
 </html>

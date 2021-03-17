@@ -23,6 +23,7 @@ public class HomeController {
 
     @RequestMapping("/home")
     public String viewHome() {
+
         return "index";
     }
 
