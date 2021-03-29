@@ -22,23 +22,23 @@ public class ReceiverUser {
         ack.acknowledge();
     }
 
-    @KafkaListener(topics = "user", groupId = "0")
-    public void receiveDelay(ConsumerRecord message, Acknowledgment ack) {
-        User user = (User) message.value();
-        log.warn("topic user {}", user);
-        latchDelay.countDown();
-        if (latchDelay.getCount() > 0) {
-            ack.nack(36000);
-            log.warn("count {}", latchDelay.getCount());
-        }
-    }
-
-    @KafkaListener(topics = "user", groupId = "test")
-    public void receiveTest(ConsumerRecord message, Acknowledgment ack) {
-        User user = (User) message.value();
-        log.warn("topic user {}", user);
-        latchDelay.countDown();
-    }
+//    @KafkaListener(topics = "user", groupId = "0")
+//    public void receiveDelay(ConsumerRecord message, Acknowledgment ack) {
+//        User user = (User) message.value();
+//        log.warn("topic user {}", user);
+//        latchDelay.countDown();
+//        if (latchDelay.getCount() > 0) {
+//            ack.nack(36000);
+//            log.warn("count {}", latchDelay.getCount());
+//        }
+//    }
+//
+//    @KafkaListener(topics = "user", groupId = "test")
+//    public void receiveTest(ConsumerRecord message, Acknowledgment ack) {
+//        User user = (User) message.value();
+//        log.warn("topic user {}", user);
+//        latchDelay.countDown();
+//    }
 
 //    @KafkaListener(topics = "user", groupId = "UserRegisteredConsumer")
 //    public void receive(@Payload String payload) {
